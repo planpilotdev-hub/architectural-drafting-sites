@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Generate content using OpenAI if available and requested, otherwise fallback to content spinner
         let spunContent;
-        let reviews = [];
+        let reviews: any[] = [];
         let contentSource = 'content-spinner';
 
         if (useOpenAI !== false && openaiContentGenerator.isAvailable()) {
