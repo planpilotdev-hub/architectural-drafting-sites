@@ -1,0 +1,23 @@
+# Exclude everything by default
+/*
+
+# Only include the architectural drafting projects
+!.gitignore
+!spec-to-svg-main/
+spec-to-svg-main/*
+!spec-to-svg-main/apps/
+spec-to-svg-main/apps/*
+!spec-to-svg-main/apps/architecturaldrafting-net/
+!spec-to-svg-main/apps/architecturaldraftingservices-org/
+
+# Exclude build artifacts and dependencies
+node_modules/
+.DS_Store
+*.log
+.next/
+.vercel/
+*.env.local
+.env
+out/
+build/
+dist/
