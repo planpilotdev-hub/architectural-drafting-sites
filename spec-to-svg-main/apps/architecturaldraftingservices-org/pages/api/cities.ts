@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { CityPage } from '@/lib/types';
 import { contentSpinner } from '@/lib/contentSpinner';
+import { openaiContentGenerator } from '@/lib/openaiService';
 
 const citiesFilePath = path.join(process.cwd(), 'public', 'data', 'cities.json');
 
@@ -57,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       case 'POST': {
         // Create a new city
-        const { city, state, stateAbbr, population, neighborhoods, landmarks } = req.body;
+        const { city, state, stateAbbr, population, neighborhoods, landmarks, useOpenAI, heroImage, heroImageAlt } = req.body;
 
         if (!city || !state || !stateAbbr) {
           return res.status(400).json({ error: 'Missing required fields: city, state, stateAbbr' });
@@ -77,8 +78,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(400).json({ error: 'City already exists with this name in this state' });
         }
 
-        // Generate content using content spinner
-        const spunContent = contentSpinner.spinCityContent(city, state);
+        // Generate content using OpenAI if available and requested, otherwise fallback to content spinner
+        let spunContent;
+        let reviews = [];
+        let contentSource = 'content-spinner';
+
+        if (useOpenAI !== false && openaiContentGenerator.isAvailable()) {
+          try {
+            // Generate main content
+            spunContent = await openaiContentGenerator.generateCityContent(city, state, {
+              population,
+              neighborhoods,
+              landmarks,
+            });
+
+            // Generate reviews
+            reviews = await openaiContentGenerator.generateReviews(city, state, 5);
+
+            contentSource = 'openai';
+          } catch (error) {
+            console.error('OpenAI generation failed, falling back to content spinner:', error);
+            spunContent = contentSpinner.spinCityContent(city, state);
+          }
+        } else {
+          spunContent = contentSpinner.spinCityContent(city, state);
+        }
 
         // Create new city object
         const newCity: CityPage = {
@@ -94,6 +118,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           heroDescription: spunContent.heroDescription,
           cityInfo: spunContent.cityInfo,
           servicesContent: spunContent.servicesContent,
+          heroImage: heroImage || undefined,
+          heroImageAlt: heroImageAlt || `Architectural drafting services in ${city}, ${state}`,
+          reviews: reviews.length > 0 ? reviews : undefined,
           population: population || undefined,
           neighborhoods: neighborhoods || undefined,
           landmarks: landmarks || undefined,
@@ -110,7 +137,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(201).json({
           success: true,
           city: newCity,
-          uniquenessScore: spunContent.uniquenessScore
+          uniquenessScore: spunContent.uniquenessScore,
+          contentSource
         });
       }
 
@@ -137,11 +165,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           updatedAt: new Date().toISOString()
         };
 
-        // If city or state changed, regenerate content
-        if (updates.city || updates.state) {
+        // If city or state changed, or if regenerate is requested, regenerate content
+        if (updates.city || updates.state || updates.regenerateContent) {
           const city = updates.city || data.cities[cityIndex].city;
           const state = updates.state || data.cities[cityIndex].state;
-          const spunContent = contentSpinner.spinCityContent(city, state);
+          const useOpenAI = updates.useOpenAI !== false;
+
+          let spunContent;
+          let contentSource = 'content-spinner';
+
+          if (useOpenAI && openaiContentGenerator.isAvailable()) {
+            try {
+              spunContent = await openaiContentGenerator.generateCityContent(city, state, {
+                population: data.cities[cityIndex].population,
+                neighborhoods: data.cities[cityIndex].neighborhoods,
+                landmarks: data.cities[cityIndex].landmarks,
+              });
+              contentSource = 'openai';
+            } catch (error) {
+              console.error('OpenAI generation failed, falling back to content spinner:', error);
+              spunContent = contentSpinner.spinCityContent(city, state);
+            }
+          } else {
+            spunContent = contentSpinner.spinCityContent(city, state);
+          }
 
           data.cities[cityIndex] = {
             ...data.cities[cityIndex],

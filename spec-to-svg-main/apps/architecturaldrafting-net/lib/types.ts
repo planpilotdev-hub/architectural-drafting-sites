@@ -1,3 +1,13 @@
+// Review Type
+export interface Review {
+  id: string;
+  author: string;
+  rating: number; // 1-5
+  text: string;
+  date: string;
+  projectType: string;
+}
+
 // City SEO Page Types
 export interface CityPage {
   id: string;
@@ -16,6 +26,13 @@ export interface CityPage {
   heroDescription: string;
   cityInfo: string;
   servicesContent: string;
+
+  // Image
+  heroImage?: string;
+  heroImageAlt?: string;
+
+  // Reviews
+  reviews?: Review[];
 
   // Optional Fields
   population?: number;

@@ -37,6 +37,8 @@ export default function AdminPage() {
   const [population, setPopulation] = useState('');
   const [neighborhoods, setNeighborhoods] = useState('');
   const [landmarks, setLandmarks] = useState('');
+  const [heroImage, setHeroImage] = useState('');
+  const [heroImageAlt, setHeroImageAlt] = useState('');
   const [useOpenAI, setUseOpenAI] = useState(true);
 
   // Load cities on mount
@@ -66,6 +68,8 @@ export default function AdminPage() {
     setPopulation('');
     setNeighborhoods('');
     setLandmarks('');
+    setHeroImage('');
+    setHeroImageAlt('');
     setUseOpenAI(true);
     setEditingCity(null);
     setShowForm(false);
@@ -90,6 +94,8 @@ export default function AdminPage() {
         population: population ? parseInt(population) : undefined,
         neighborhoods: neighborhoods ? neighborhoods.split(',').map(n => n.trim()) : undefined,
         landmarks: landmarks ? landmarks.split(',').map(l => l.trim()) : undefined,
+        heroImage: heroImage || undefined,
+        heroImageAlt: heroImageAlt || undefined,
         useOpenAI: useOpenAI,
         regenerateContent: editingCity ? true : undefined
       };
@@ -131,6 +137,8 @@ export default function AdminPage() {
     setPopulation(city.population?.toString() || '');
     setNeighborhoods(city.neighborhoods?.join(', ') || '');
     setLandmarks(city.landmarks?.join(', ') || '');
+    setHeroImage(city.heroImage || '');
+    setHeroImageAlt(city.heroImageAlt || '');
     setShowForm(true);
   };
 
@@ -333,6 +341,46 @@ export default function AdminPage() {
                     }}
                     placeholder="e.g., City Hall, Central Park, Historic District"
                   />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
+                      Hero Image URL (optional)
+                    </label>
+                    <input
+                      type="url"
+                      value={heroImage}
+                      onChange={(e) => setHeroImage(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: 12,
+                        border: '1px solid #ddd',
+                        borderRadius: 8,
+                        fontSize: 16
+                      }}
+                      placeholder="https://example.com/image.jpg"
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
+                      Image Alt Text (optional)
+                    </label>
+                    <input
+                      type="text"
+                      value={heroImageAlt}
+                      onChange={(e) => setHeroImageAlt(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: 12,
+                        border: '1px solid #ddd',
+                        borderRadius: 8,
+                        fontSize: 16
+                      }}
+                      placeholder="e.g., City skyline of San Francisco"
+                    />
+                  </div>
                 </div>
 
                 <div style={{ marginBottom: 20 }}>

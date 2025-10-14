@@ -58,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       case 'POST': {
         // Create a new city
-        const { city, state, stateAbbr, population, neighborhoods, landmarks, useOpenAI } = req.body;
+        const { city, state, stateAbbr, population, neighborhoods, landmarks, useOpenAI, heroImage, heroImageAlt } = req.body;
 
         if (!city || !state || !stateAbbr) {
           return res.status(400).json({ error: 'Missing required fields: city, state, stateAbbr' });
@@ -80,15 +80,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Generate content using OpenAI if available and requested, otherwise fallback to content spinner
         let spunContent;
+        let reviews = [];
         let contentSource = 'content-spinner';
 
         if (useOpenAI !== false && openaiContentGenerator.isAvailable()) {
           try {
+            // Generate main content
             spunContent = await openaiContentGenerator.generateCityContent(city, state, {
               population,
               neighborhoods,
               landmarks,
             });
+
+            // Generate reviews
+            reviews = await openaiContentGenerator.generateReviews(city, state, 5);
+
             contentSource = 'openai';
           } catch (error) {
             console.error('OpenAI generation failed, falling back to content spinner:', error);
@@ -112,6 +118,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           heroDescription: spunContent.heroDescription,
           cityInfo: spunContent.cityInfo,
           servicesContent: spunContent.servicesContent,
+          heroImage: heroImage || undefined,
+          heroImageAlt: heroImageAlt || `Architectural drafting services in ${city}, ${state}`,
+          reviews: reviews.length > 0 ? reviews : undefined,
           population: population || undefined,
           neighborhoods: neighborhoods || undefined,
           landmarks: landmarks || undefined,

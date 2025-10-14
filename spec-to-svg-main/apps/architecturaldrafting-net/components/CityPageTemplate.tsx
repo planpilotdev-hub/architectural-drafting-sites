@@ -6,7 +6,7 @@ interface CityPageTemplateProps {
 }
 
 export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
-  const { city, state, title, metaDescription, heroTitle, heroDescription, cityInfo, servicesContent } = cityData;
+  const { city, state, title, metaDescription, heroTitle, heroDescription, cityInfo, servicesContent, heroImage, heroImageAlt, reviews } = cityData;
 
   return (
     <>
@@ -76,8 +76,19 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
           <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
             About {city}, {state}
           </h2>
-          <div style={{ fontSize: 18, lineHeight: 1.8, color: '#4b5563' }}>
-            <p>{cityInfo}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: heroImage ? '1fr 1fr' : '1fr', gap: 40, alignItems: 'center' }}>
+            {heroImage && (
+              <div style={{ borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                <img
+                  src={heroImage}
+                  alt={heroImageAlt || `Architectural drafting services in ${city}, ${state}`}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </div>
+            )}
+            <div style={{ fontSize: 18, lineHeight: 1.8, color: '#4b5563' }}>
+              <p>{cityInfo}</p>
+            </div>
           </div>
         </div>
       </section>
@@ -119,8 +130,54 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
         </div>
       </section>
 
+      {/* Reviews Section */}
+      {reviews && reviews.length > 0 && (
+        <section style={{ padding: '80px 24px', background: '#f9fafb' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+            <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 48, textAlign: 'center' }}>
+              What Our Clients Say
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 24 }}>
+              {reviews.map((review) => (
+                <div key={review.id} style={{
+                  background: 'white',
+                  padding: 24,
+                  borderRadius: 12,
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e7eb'
+                }}>
+                  {/* Star Rating */}
+                  <div style={{ marginBottom: 12 }}>
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} style={{ color: i < review.rating ? '#fbbf24' : '#d1d5db', fontSize: 20 }}>
+                        ★
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Review Text */}
+                  <p style={{ color: '#4b5563', fontSize: 16, lineHeight: 1.6, marginBottom: 16 }}>
+                    "{review.text}"
+                  </p>
+
+                  {/* Author Info */}
+                  <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 12 }}>
+                    <p style={{ fontWeight: 600, color: '#111827', marginBottom: 4 }}>
+                      {review.author}
+                    </p>
+                    <p style={{ fontSize: 14, color: '#6b7280' }}>
+                      {review.projectType} • {new Date(review.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Contact Section */}
-      <section id="contact" style={{ padding: '80px 24px', background: '#f9fafb' }}>
+      <section id="contact" style={{ padding: '80px 24px', background: reviews && reviews.length > 0 ? 'white' : '#f9fafb' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 24 }}>
             Ready to Start Your Project in {city}?
