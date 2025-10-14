@@ -93,7 +93,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
 
             // Generate reviews
-            reviews = await openaiContentGenerator.generateReviews(city, state, 5);
+            reviews = await openaiContentGenerator.generateReviews(city, state, 3);
 
             contentSource = 'openai';
           } catch (error) {

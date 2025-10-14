@@ -76,16 +76,37 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
           <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
             About {city}, {state}
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: heroImage ? '1fr 1fr' : '1fr', gap: 40, alignItems: 'center' }}>
-            {heroImage && (
-              <div style={{ borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'center' }}>
+            <div style={{ borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', background: '#f3f4f6' }}>
+              {heroImage ? (
                 <img
                   src={heroImage}
                   alt={heroImageAlt || `Architectural drafting services in ${city}, ${state}`}
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
-              </div>
-            )}
+              ) : (
+                <div style={{
+                  width: '100%',
+                  height: 300,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  flexDirection: 'column',
+                  gap: 12
+                }}>
+                  <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <path d="M21 15l-5-5L5 21" />
+                  </svg>
+                  <p style={{ margin: 0, fontSize: 16, opacity: 0.9 }}>
+                    {city}, {state}
+                  </p>
+                </div>
+              )}
+            </div>
             <div style={{ fontSize: 18, lineHeight: 1.8, color: '#4b5563' }}>
               <p>{cityInfo}</p>
             </div>
@@ -138,7 +159,7 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
               What Our Clients Say
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 24 }}>
-              {reviews.map((review) => (
+              {reviews.slice(0, 3).map((review) => (
                 <div key={review.id} style={{
                   background: 'white',
                   padding: 24,
