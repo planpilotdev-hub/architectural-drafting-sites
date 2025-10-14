@@ -1,3 +1,31 @@
 {
-  "cities": []
+  "cities": [
+    {
+      "id": "city_1760462225437_k0xfa5b5w",
+      "city": "San Francisco",
+      "state": "California",
+      "stateAbbr": "CA",
+      "urlSlug": "san-francisco",
+      "status": "draft",
+      "title": "Top Architectural Drafting Services in San Francisco, CA | Architectural Drafting",
+      "metaDescription": "Transform your vision into reality with expert drafting services tailored for San Francisco’s unique architectural landscape.",
+      "heroTitle": "Top Architectural Drafting Services in San Francisco, CA",
+      "heroDescription": "Transform your vision into reality with expert drafting services tailored for San Francisco’s unique architectural landscape.",
+      "cityInfo": "San Francisco, with its vibrant population of 873,965, is known for its eclectic mix of architectural styles, from the Victorian homes of the Mission District to the modernist buildings in Pacific Heights. As the city continues to develop and grow, the demand for expert architectural drafting services has never been higher. Local builders and homeowners are increasingly seeking tailored designs that reflect the city's unique character while complying with strict zoning regulations. With landmarks like the Golden Gate Bridge and Alcatraz Island shaping the skyline, having a well-thought-out architectural plan is crucial. The ongoing evolution of neighborhoods like North Beach and the Ferry Building area showcases a blend of historic preservation and innovative design, making professional drafting services essential for any construction or renovation project in San Francisco.",
+      "servicesContent": "Our architectural drafting services in San Francisco cater to a diverse range of needs. We specialize in residential plans that reflect the city's distinct architectural styles, ensuring your home blends seamlessly with the surrounding environment. For commercial projects, our expert drafters create detailed, functional layouts that optimize space and enhance usability. Additionally, we prepare permit-ready plans to streamline the approval process, ensuring compliance with local regulations. Our cutting-edge 3D modeling services bring your designs to life, allowing you to visualize your project before construction begins. Whether you're a homeowner ready to embark on a new build or a developer looking to maximize your investment, our professional drafting services are designed to elevate your project and bring your vision to fruition in the heart of San Francisco.",
+      "population": 873965,
+      "neighborhoods": [
+        "Mission District",
+        "North Beach",
+        "Pacific Heights"
+      ],
+      "landmarks": [
+        "Golden Gate Bridge",
+        "Alcatraz Island",
+        "Ferry Building"
+      ],
+      "createdAt": "2025-10-14T17:17:05.438Z",
+      "updatedAt": "2025-10-14T17:17:05.438Z"
+    }
+  ]
 }

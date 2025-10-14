@@ -37,6 +37,7 @@ export default function AdminPage() {
   const [population, setPopulation] = useState('');
   const [neighborhoods, setNeighborhoods] = useState('');
   const [landmarks, setLandmarks] = useState('');
+  const [useOpenAI, setUseOpenAI] = useState(true);
 
   // Load cities on mount
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function AdminPage() {
     setPopulation('');
     setNeighborhoods('');
     setLandmarks('');
+    setUseOpenAI(true);
     setEditingCity(null);
     setShowForm(false);
   };
@@ -87,7 +89,9 @@ export default function AdminPage() {
         stateAbbr,
         population: population ? parseInt(population) : undefined,
         neighborhoods: neighborhoods ? neighborhoods.split(',').map(n => n.trim()) : undefined,
-        landmarks: landmarks ? landmarks.split(',').map(l => l.trim()) : undefined
+        landmarks: landmarks ? landmarks.split(',').map(l => l.trim()) : undefined,
+        useOpenAI: useOpenAI,
+        regenerateContent: editingCity ? true : undefined
       };
 
       const url = editingCity ? `/api/cities?id=${editingCity.id}` : '/api/cities';
@@ -105,10 +109,11 @@ export default function AdminPage() {
       }
 
       const result = await response.json();
+      const sourceMessage = result.contentSource === 'openai' ? ' (AI Generated)' : ' (Template Based)';
       setSuccess(
         editingCity
-          ? 'City updated successfully!'
-          : `City added successfully! Uniqueness score: ${result.uniquenessScore}%`
+          ? 'City updated successfully!' + sourceMessage
+          : `City added successfully! Uniqueness score: ${result.uniquenessScore}%${sourceMessage}`
       );
 
       resetForm();
@@ -328,6 +333,33 @@ export default function AdminPage() {
                     }}
                     placeholder="e.g., City Hall, Central Park, Historic District"
                   />
+                </div>
+
+                <div style={{ marginBottom: 20 }}>
+                  <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={useOpenAI}
+                      onChange={(e) => setUseOpenAI(e.target.checked)}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        marginRight: 12,
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <span style={{ fontWeight: 600 }}>
+                      Use OpenAI for content generation
+                    </span>
+                    <span style={{
+                      marginLeft: 8,
+                      fontSize: 14,
+                      color: '#6b7280',
+                      fontWeight: 400
+                    }}>
+                      (Generates unique, high-quality content using AI)
+                    </span>
+                  </label>
                 </div>
 
                 <div style={{ display: 'flex', gap: 12 }}>
