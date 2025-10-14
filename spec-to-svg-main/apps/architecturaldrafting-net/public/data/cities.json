@@ -6,7 +6,7 @@
       "state": "California",
       "stateAbbr": "CA",
       "urlSlug": "san-francisco",
-      "status": "draft",
+      "status": "published",
       "title": "Top Architectural Drafting Services in San Francisco, CA | Architectural Drafting",
       "metaDescription": "Transform your vision into reality with expert drafting services tailored for San Francisco’s unique architectural landscape.",
       "heroTitle": "Top Architectural Drafting Services in San Francisco, CA",
@@ -25,7 +25,7 @@
         "Ferry Building"
       ],
       "createdAt": "2025-10-14T17:17:05.438Z",
-      "updatedAt": "2025-10-14T17:17:05.438Z"
+      "updatedAt": "2025-10-14T17:20:28.849Z"
     }
   ]
 }
