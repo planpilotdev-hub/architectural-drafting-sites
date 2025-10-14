@@ -108,36 +108,36 @@ export class ContentSpinner {
     // Initialize seed for this city
     this.seedValue = this.createSeed(city, state);
 
-    // Hero title variations
+    // Hero title variations - KEYWORD: "architectural drafting"
     const heroTitles = [
-      `{Professional} {Architectural} {Drafting} {Services} in ${city}, ${state}`,
-      `Expert {Drafting} Solutions for ${city} {Builders} and {Architects}`,
-      `{Quality} {Architectural} {Plans} in ${city}, ${state}`,
-      `${city}'s Leading {Architectural} {Drafting} Company`
+      `{Professional} Architectural Drafting in ${city}, ${state}`,
+      `Expert Architectural Drafting for ${city} {Builders} and {Architects}`,
+      `{Quality} Architectural Drafting in ${city}, ${state}`,
+      `${city}'s Leading Architectural Drafting Company`
     ];
 
-    // Hero description variations
+    // Hero description variations - KEYWORD: "architectural drafting"
     const heroDescriptions = [
-      `{Precise} CAD and {drafting} {support} for {architects}, {builders}, and {homeowners} in ${city}. {Fast} turnaround, {professional} results.`,
-      `Transform your vision into reality with our {comprehensive} {architectural} {drafting} {services}. Serving ${city} and surrounding areas.`,
-      `{Quality} {residential} and {commercial} {drafting} {services} tailored for ${city} projects. Get started today.`,
-      `{Help} bring your building project to life with {precise} {architectural} {plans} designed for ${city}, ${state}.`
+      `{Precise} architectural drafting and CAD {support} for {architects}, {builders}, and {homeowners} in ${city}. {Fast} turnaround, {professional} results.`,
+      `Transform your vision into reality with our {comprehensive} architectural drafting solutions. Serving ${city} and surrounding areas.`,
+      `{Quality} {residential} and {commercial} architectural drafting tailored for ${city} projects. Get started today.`,
+      `{Help} bring your building project to life with {precise} architectural drafting designed for ${city}, ${state}.`
     ];
 
-    // Services content variations
+    // Services content variations - KEYWORD: "architectural drafting"
     const servicesContent = [
-      `Our {architectural} {drafting} {services} in ${city} include {residential} floor plans, {commercial} building designs, site plans, and construction documentation. We {provide} {professional} CAD {drafting} with {fast} delivery times.`,
-      `We specialize in creating {precise} {architectural} {plans} for ${city} {builders}, {contractors}, and {homeowners}. From concept to construction, our {experienced} team delivers {quality} {drafting} solutions.`,
-      `{Comprehensive} {drafting} {services} for ${city}: {residential} renovations, new {commercial} construction, permit {plans}, and as-built drawings. {Professional} results, competitive pricing.`,
-      `Serving ${city} with {expert} {architectural} {drafting} for over a decade. Our {services} include 3D modeling, construction documents, and {precise} technical drawings for any project size.`
+      `Our architectural drafting in ${city} includes {residential} floor plans, {commercial} building designs, site plans, and construction documentation. We {provide} {professional} CAD architectural drafting with {fast} delivery times.`,
+      `We specialize in {precise} architectural drafting for ${city} {builders}, {contractors}, and {homeowners}. From concept to construction, our {experienced} team delivers {quality} architectural drafting solutions.`,
+      `{Comprehensive} architectural drafting for ${city}: {residential} renovations, new {commercial} construction, permit {plans}, and as-built drawings. {Professional} results, competitive pricing.`,
+      `Serving ${city} with {expert} architectural drafting for over a decade. We {provide} 3D modeling, construction documents, and {precise} technical drawings for any project size.`
     ];
 
-    // City info variations
+    // City info variations - KEYWORD: "architectural drafting"
     const cityInfoTemplates = [
-      `${city}, ${state} is a thriving community with diverse {architectural} needs. Our local {drafting} team understands ${city}'s building codes, zoning requirements, and {architectural} styles.`,
-      `Located in ${state}, ${city} features a mix of {residential} and {commercial} development. We {provide} {drafting} {services} that meet local ${city} building standards and regulations.`,
-      `${city} residents and {builders} trust our {architectural} {drafting} expertise. We're familiar with ${city}'s unique building requirements and deliver {precise} {plans} on time.`,
-      `As ${city}'s preferred {drafting} {services} provider, we understand the local {architectural} landscape. From historic renovations to modern new builds, we've got ${city} covered.`
+      `${city}, ${state} is a thriving community with diverse {architectural} needs. Our local architectural drafting team understands ${city}'s building codes, zoning requirements, and {architectural} styles.`,
+      `Located in ${state}, ${city} features a mix of {residential} and {commercial} development. We {provide} architectural drafting that meets local ${city} building standards and regulations.`,
+      `${city} residents and {builders} trust our architectural drafting expertise. We're familiar with ${city}'s unique building requirements and deliver {precise} {plans} on time.`,
+      `As ${city}'s preferred architectural drafting provider, we understand the local {architectural} landscape. From historic renovations to modern new builds, we've got ${city} covered.`
     ];
 
     // Select variations based on seed

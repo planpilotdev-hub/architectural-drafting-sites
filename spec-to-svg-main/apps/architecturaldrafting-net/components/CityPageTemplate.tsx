@@ -118,7 +118,7 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
       <section id="services" style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
-            Our Drafting Services in {city}
+            Architectural Drafting in {city}
           </h2>
           <div style={{ fontSize: 18, lineHeight: 1.8, color: '#4b5563', marginBottom: 48 }}>
             <p>{servicesContent}</p>
@@ -243,7 +243,7 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
       {/* Footer */}
       <footer style={{ background: '#1f2937', color: 'white', padding: '32px 24px', textAlign: 'center' }}>
         <p style={{ margin: 0, opacity: 0.7 }}>
-          © {new Date().getFullYear()} Architectural Drafting Services. Serving {city}, {state}
+          © {new Date().getFullYear()} Architectural Drafting. Serving {city}, {state}
         </p>
       </footer>
     </>

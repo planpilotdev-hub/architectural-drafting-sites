@@ -118,7 +118,7 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
       <section id="services" style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <h2 style={{ fontSize: 36, fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
-            Our Drafting Services in {city}
+            Architectural Drafting Services in {city}
           </h2>
           <div style={{ fontSize: 18, lineHeight: 1.8, color: '#4b5563', marginBottom: 48 }}>
             <p>{servicesContent}</p>

@@ -44,25 +44,28 @@ export class OpenAIContentGenerator {
 
     const contextInfo = this.buildContextInfo(options);
 
-    const prompt = `You are a professional content writer specializing in architectural drafting services SEO content.
+    const prompt = `You are a professional content writer specializing in architectural drafting SEO content.
 
-Generate unique, engaging content for a local SEO page about architectural drafting services in ${city}, ${state}.
+CRITICAL: The main keyword for this site is "architectural drafting" (NOT "architectural drafting services").
+You MUST use the exact phrase "architectural drafting" throughout the content. Never use "services" after "architectural drafting".
+
+Generate unique, engaging content for a local SEO page about architectural drafting in ${city}, ${state}.
 ${contextInfo}
 
 Please provide the following content pieces in a structured JSON format:
 
-1. heroTitle: A compelling H1 title (50-70 characters) that includes the city name and highlights architectural drafting services
-2. heroDescription: An engaging hero section description (120-160 characters) that explains the value proposition
-3. cityInfo: A paragraph (150-200 words) about architectural drafting needs in ${city}, mentioning local building trends, architecture styles, and community development
-4. servicesContent: A paragraph (150-200 words) describing the specific architectural drafting services offered in ${city}, including residential plans, commercial drafting, permit-ready plans, and 3D modeling
+1. heroTitle: A compelling H1 title (50-70 characters) that includes "${city}" and the exact phrase "architectural drafting"
+2. heroDescription: An engaging hero section description (120-160 characters) featuring "architectural drafting" naturally
+3. cityInfo: A paragraph (150-200 words) about architectural drafting needs in ${city}, mentioning local building trends, architecture styles, and community development. Use "architectural drafting" at least 2 times.
+4. servicesContent: A paragraph (150-200 words) describing architectural drafting in ${city}, including residential plans, commercial drafting, permit-ready plans, and 3D modeling. Use "architectural drafting" at least 3 times.
 
 Requirements:
+- MUST use "architectural drafting" as the primary keyword (NOT "architectural drafting services")
 - Content must be unique and natural-sounding, not templated
 - Include location-specific details about ${city}, ${state}
 - Use professional but approachable tone
 - Focus on benefits to local builders, architects, homeowners, and developers
-- Incorporate relevant architectural drafting keywords naturally
-- Make it SEO-friendly but human-readable
+- Make it SEO-friendly but human-readable with natural keyword placement
 - Avoid generic phrases and clichés
 
 Return ONLY valid JSON in this exact format:
@@ -79,7 +82,7 @@ Return ONLY valid JSON in this exact format:
         messages: [
           {
             role: 'system',
-            content: 'You are an expert SEO content writer specializing in local architectural drafting services. You create unique, engaging, and location-specific content that ranks well in search engines while being genuinely useful to readers.',
+            content: 'You are an expert SEO content writer specializing in local architectural drafting (NOT services). Your primary keyword is "architectural drafting". You create unique, engaging, and location-specific content that ranks well in search engines while being genuinely useful to readers.',
           },
           {
             role: 'user',
@@ -99,10 +102,10 @@ Return ONLY valid JSON in this exact format:
       const parsedContent = JSON.parse(content);
 
       return {
-        heroTitle: parsedContent.heroTitle || `Professional Architectural Drafting Services in ${city}, ${state}`,
-        heroDescription: parsedContent.heroDescription || `Expert CAD and drafting support for architects, builders, and homeowners in ${city}.`,
-        cityInfo: parsedContent.cityInfo || `${city}, ${state} is a thriving community with diverse architectural needs.`,
-        servicesContent: parsedContent.servicesContent || `Our architectural drafting services in ${city} include residential floor plans, commercial building designs, and construction documentation.`,
+        heroTitle: parsedContent.heroTitle || `Professional Architectural Drafting in ${city}, ${state}`,
+        heroDescription: parsedContent.heroDescription || `Expert architectural drafting and CAD support for architects, builders, and homeowners in ${city}.`,
+        cityInfo: parsedContent.cityInfo || `${city}, ${state} is a thriving community with diverse architectural drafting needs.`,
+        servicesContent: parsedContent.servicesContent || `Our architectural drafting in ${city} includes residential floor plans, commercial building designs, and construction documentation.`,
         uniquenessScore: 95, // OpenAI generated content is highly unique
       };
     } catch (error) {
@@ -125,9 +128,9 @@ Return ONLY valid JSON in this exact format:
     }
 
     const prompts = {
-      hero: `Write a compelling 2-3 sentence hero description for an architectural drafting services page targeting ${city}, ${state}. Focus on the value proposition and local expertise.`,
-      cityInfo: `Write a 150-200 word paragraph about architectural drafting opportunities and building trends in ${city}, ${state}. Include information about local architecture, development, and why professional drafting services are valuable in this area.`,
-      services: `Write a 150-200 word paragraph describing architectural drafting services available in ${city}, ${state}. Include: residential plans, commercial drafting, permit-ready plans, 3D modeling, and CAD services. Focus on local building codes and regulations.`,
+      hero: `Write a compelling 2-3 sentence hero description for an architectural drafting page targeting ${city}, ${state}. Use the phrase "architectural drafting" naturally. Focus on the value proposition and local expertise.`,
+      cityInfo: `Write a 150-200 word paragraph about architectural drafting opportunities and building trends in ${city}, ${state}. Use "architectural drafting" at least twice. Include information about local architecture, development, and why professional architectural drafting is valuable in this area.`,
+      services: `Write a 150-200 word paragraph describing architectural drafting available in ${city}, ${state}. Use "architectural drafting" at least 3 times. Include: residential plans, commercial drafting, permit-ready plans, 3D modeling, and CAD services. Focus on local building codes and regulations.`,
     };
 
     try {
@@ -136,7 +139,7 @@ Return ONLY valid JSON in this exact format:
         messages: [
           {
             role: 'system',
-            content: 'You are an expert SEO content writer specializing in local architectural drafting services.',
+            content: 'You are an expert SEO content writer specializing in local architectural drafting. Your main keyword is "architectural drafting".',
           },
           {
             role: 'user',
@@ -189,7 +192,7 @@ Return ONLY valid JSON in this exact format:
       throw new Error('OpenAI API key not configured');
     }
 
-    const prompt = `Generate ${count} realistic, diverse customer reviews for an architectural drafting services company in ${city}, ${state}.
+    const prompt = `Generate ${count} realistic, diverse customer reviews for an architectural drafting company in ${city}, ${state}.
 
 Requirements:
 - Mix of ratings: mostly 4-5 stars, with maybe one 3-star for authenticity
@@ -217,7 +220,7 @@ Return ONLY valid JSON array in this format:
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful assistant that generates realistic customer reviews for architectural drafting services.',
+            content: 'You are a helpful assistant that generates realistic customer reviews for architectural drafting.',
           },
           {
             role: 'user',
